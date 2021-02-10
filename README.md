@@ -13,14 +13,14 @@ This repo holds Vagrant script to create and provision a number of VMs based on 
    - Install Vagrant: `$ sudo apt install vagrant`
 
 ## Create the VMs using Vagrant
-   - Update `NODE_COUNT` in the file `./Ubuntu_20_04/Vagrantfile` to specify the number of nodes to be created (in addition to a master node).
+   - Update `NODE_COUNT` in the file `./Ubuntu_20_04/Vagrantfile` to specify the number of nodes to be created.
    - Update the provision script `./Ubuntu_20_04/bootstrap.sh`, if need to install custom packges in each nodes.
    - Change into the directory of `Vagrantfile` file.
    - To bring the VMs up: 
       - `~/vagrant/Ubuntu_20_04$ vagrant up`
    - SSH nodes using vagrant CLI: 
-      - `~/vagrant/Ubuntu_20_04$ vagrant ssh (master|node1|node2)`
+      - `~/vagrant/Ubuntu_20_04$ vagrant ssh (node1|node2|...)`
    - You could also SSH the nodes from your host machine using, using the deafult username/password `vagrant/vagrant`:
-      - `~/vagrant/Ubuntu_20_04$ ssh vagrant@192.168.33.10  # master node`
+      - `~/vagrant/Ubuntu_20_04$ ssh vagrant@192.168.33.11  # node1`
    - To bring the VMs down: 
       - `~/vagrant/Ubuntu_20_04$ vagrant destroy -f`
