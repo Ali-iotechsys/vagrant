@@ -20,7 +20,7 @@ This repo holds Vagrant script to create and provision a number of VMs based on 
       - `~/vagrant/Ubuntu_20_04$ vagrant up`
    - SSH nodes using vagrant CLI: 
       - `~/vagrant/Ubuntu_20_04$ vagrant ssh (node1|node2|...)`
-   - You could also SSH the nodes from your host machine using, using the deafult username/password `vagrant/vagrant`:
+   - You could also SSH the nodes from your host machine using the deafult username/password `vagrant/vagrant`:
       - `~/vagrant/Ubuntu_20_04$ ssh vagrant@192.168.33.11  # node1`
    - To bring the VMs down: 
       - `~/vagrant/Ubuntu_20_04$ vagrant destroy -f`
