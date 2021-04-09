@@ -1,0 +1,10 @@
+#!/sbin/openrc-run
+
+start() {
+  sleep 2
+  /usr/local/bin/dockerd &
+}
+
+stop () {
+  kill $(pidof dockerd)
+}
