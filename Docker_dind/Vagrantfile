@@ -7,6 +7,9 @@ VAGRANTFILE_API_VERSION = "2"
 # Use docker provider by default (i.e. without specifying --provider on command line)
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'docker'
 
+# Disable parallelism if provider supports it
+ENV['VAGRANT_NO_PARALLEL'] = 'yes'
+
 # Base Docker Image
 BASE_IMAGE = "myalpine:0.2"
 
@@ -19,19 +22,21 @@ end
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Build Base Image
-#  config.vm.provider "docker" do |d0|
-#    d0.build_dir = "."
-#    d0.dockerfile = "Dockerfile"
-#    d0.build_args = ["--no-cache", "--tag", BASE_IMAGE]
-#  end
+  #config.vm.provider "docker" do |d0|
+  #  d0.build_dir = "."
+  #  d0.dockerfile = "Dockerfile"
+  #  d0.build_args = ["--no-cache", "--tag", BASE_IMAGE]
+  #end
   
   # Create 'n' nodes
   (1..node_count).each do |i|
     config.vm.define "node#{i}" do |subconfig|
       subconfig.vm.hostname = "node#{i}"
+      subconfig.vm.network :forwarded_port, guest: 22, host: "#{2200 + i}".to_i, id: "ssh", auto_correct: true
       subconfig.vm.provider "docker" do |d|
         d.name = "node#{i}"
         d.image = BASE_IMAGE
+        #d.ports = [ "127.0.0.1:2200:22" ]
         d.privileged = true  # Required for "docker in docker"
         d.has_ssh = true     # Required for provisioning and 'vagrant ssh' to work.
       end
@@ -40,9 +45,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.ssh.username = "root"
   config.ssh.password = "root"
-  
-  # Enable ssh forward agent 
-  #config.ssh.forward_agent = true
   
   #config.vm.network "forwarded_port", guest: 8080, host: 8080
 
