@@ -13,7 +13,7 @@ ENV['VAGRANT_NO_PARALLEL'] = 'yes'
 # Base Docker Image
 BASE_IMAGE = "myalpine:0.2"
 
-# Number of (Edge) nodes
+# Number of nodes
 node_count = 1  
 if ENV['NODE_COUNT']
   node_count = ENV['NODE_COUNT'].to_i  
